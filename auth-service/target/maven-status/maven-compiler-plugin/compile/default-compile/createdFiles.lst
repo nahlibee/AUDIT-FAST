@@ -1,0 +1,16 @@
+com\audit\auth\model\Role.class
+com\audit\auth\model\User.class
+com\audit\auth\dto\AuthenticationRequest.class
+com\audit\auth\dto\RegisterRequest.class
+com\audit\auth\dto\AuthenticationResponse.class
+com\audit\auth\dto\AuthenticationRequest$AuthenticationRequestBuilder.class
+com\audit\auth\dto\RegisterRequest$RegisterRequestBuilder.class
+com\audit\auth\security\JwtService.class
+com\audit\auth\config\SecurityConfig.class
+com\audit\auth\security\JwtAuthenticationFilter.class
+com\audit\auth\service\AuthenticationService.class
+com\audit\auth\repository\UserRepository.class
+com\audit\auth\controller\AuthenticationController.class
+com\audit\auth\AuthServiceApplication.class
+com\audit\auth\dto\AuthenticationResponse$AuthenticationResponseBuilder.class
+com\audit\auth\model\User$UserBuilder.class

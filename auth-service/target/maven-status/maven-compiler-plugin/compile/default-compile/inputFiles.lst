@@ -1,0 +1,13 @@
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\security\JwtService.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\model\User.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\repository\UserRepository.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\service\AuthenticationService.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\config\SecurityConfig.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\dto\AuthenticationRequest.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\dto\AuthenticationResponse.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\AuthServiceApplication.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\security\JwtAuthenticationFilter.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\model\Role.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\service\CustomUserDetailsService.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\dto\RegisterRequest.java
+C:\Users\yahya\Desktop\AUDIT-FAST\auth-service\src\main\java\com\audit\auth\controller\AuthenticationController.java
