@@ -1,0 +1,159 @@
+/* Import Tailwind CSS base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables */
+:root {
+  --primary-yellow: #facc15; /* yellow-400 */
+  --primary-yellow-dark: #eab308; /* yellow-500 */
+  --primary-yellow-light: #fef08a; /* yellow-200 */
+  --primary-black: #1f2937; /* gray-800 */
+  --primary-black-light: #374151; /* gray-700 */
+  --accent-lime: #84cc16; /* lime-500 */
+  --accent-amber: #f59e0b; /* amber-500 */
+  --accent-red: #ef4444; /* red-500 */
+  --text-dark: #111827; /* gray-900 */
+  --text-light: #f9fafb; /* gray-50 */
+  --bg-light: #f9fafb; /* gray-50 */
+}
+
+/* Base styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply bg-gray-50 text-gray-900;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom global styles */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-medium;
+}
+
+/* Custom component styles */
+@layer components {
+  /* Header styles */
+  .app-logo {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  /* Better focus styles for accessibility */
+  .focus-yellow {
+    @apply focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2;
+  }
+
+  /* Form file inputs with SAP theme */
+  input[type="file"] {
+    @apply block w-full text-sm text-gray-500
+      file:mr-4 file:py-2 file:px-4 file:rounded-md
+      file:border-0 file:font-medium
+      file:bg-yellow-400 file:text-black
+      hover:file:bg-yellow-500;
+  }
+
+  /* Custom scrollbar for tables */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+    border-radius: 5px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-400;
+    border-radius: 5px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+
+  /* Loading animation */
+  .loading-spinner {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 3px solid var(--primary-yellow);
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Transition effects */
+  .fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Tooltip styles */
+  .tooltip {
+    @apply invisible absolute z-10 py-1 px-2 bg-gray-900 text-white text-xs rounded opacity-0 transition-opacity duration-300;
+  }
+
+  .tooltip-trigger:hover .tooltip {
+    @apply visible opacity-100;
+  }
+
+  /* Risk indicators with badges */
+  .risk-badge-critical {
+    @apply bg-red-100 text-red-900 border border-red-200 rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+  
+  .risk-badge-high {
+    @apply bg-amber-100 text-amber-900 border border-amber-200 rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+  
+  .risk-badge-medium {
+    @apply bg-yellow-100 text-yellow-900 border border-yellow-200 rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+  
+  .risk-badge-low {
+    @apply bg-lime-100 text-lime-900 border border-lime-200 rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+
+  /* Print styles for reports */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    
+    .print-only {
+      display: block !important;
+    }
+    
+    body {
+      background-color: white;
+      color: black;
+    }
+    
+    .print-container {
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .print-page-break {
+      page-break-after: always;
+    }
+  }
+}
