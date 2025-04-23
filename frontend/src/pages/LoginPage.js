@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { getButtonClass, getCardClass } from '../utils/styleUtils';
 
 const LoginPage = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -12,12 +12,8 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const validateForm = () => {
-        if (!email || !password) {
+        if (!username || !password) {
             setError('Veuillez remplir tous les champs');
-            return false;
-        }
-        if (!/\S+@\S+\.\S+/.test(email)) {
-            setError('Veuillez entrer une adresse email valide');
             return false;
         }
         return true;
@@ -33,15 +29,34 @@ const LoginPage = () => {
 
         setIsLoading(true);
         try {
-            const success = await login(email, password);
+            const success = await login(username, password);
             if (success) {
                 navigate('/');
             } else {
-                setError('Email ou mot de passe invalide');
+                setError('Nom d\'utilisateur ou mot de passe invalide');
             }
         } catch (error) {
             console.error('Login error:', error);
-            setError('Une erreur est survenue lors de la connexion');
+            // Handle specific error responses
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                if (error.response.status === 401) {
+                    setError('Identifiants incorrects. Veuillez vérifier votre nom d\'utilisateur et mot de passe.');
+                } else if (error.response.status === 403) {
+                    setError('Votre compte n\'a pas l\'autorisation d\'accéder à cette application.');
+                } else if (error.response.data && error.response.data.message) {
+                    setError(error.response.data.message);
+                } else {
+                    setError('Erreur d\'authentification. Veuillez réessayer plus tard.');
+                }
+            } else if (error.request) {
+                // The request was made but no response was received
+                setError('Le serveur ne répond pas. Veuillez vérifier votre connexion internet.');
+            } else {
+                // Something happened in setting up the request
+                setError('Une erreur est survenue lors de la connexion');
+            }
         } finally {
             setIsLoading(false);
         }
@@ -69,17 +84,17 @@ const LoginPage = () => {
                     )}
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
-                            <label htmlFor="email-address" className="sr-only">Adresse email</label>
+                            <label htmlFor="username" className="sr-only">Nom d'utilisateur</label>
                             <input
-                                id="email-address"
-                                name="email"
-                                type="email"
-                                autoComplete="email"
+                                id="username"
+                                name="username"
+                                type="text"
+                                autoComplete="username"
                                 required
                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 focus:z-10 sm:text-sm"
-                                placeholder="Adresse email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Nom d'utilisateur"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 disabled={isLoading}
                             />
                         </div>

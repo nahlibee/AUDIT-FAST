@@ -29,9 +29,9 @@ import SoDRulesPage from './pages/analysis/SoDRulesPage';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
-  const { token } = useAuth();
+  const { isLoggedIn } = useAuth();
   
-  if (!token) {
+  if (!isLoggedIn) {
     // Redirect to login if not authenticated
     return <Navigate to="/login" replace />;
   }
