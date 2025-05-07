@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useSAPData } from '../../../context/SAPDataContext';
+import { useSAPData } from '../../../context/SapDataContext';
 import DataTable from '../../common/DataTable';
-import { getRiskLevelClass } from '../../../utils/styleUtils';
+import { getRiskLevelClass } from '../../../utils/StyleUtils';
 
 const SodRules = () => {
   const { sodRules, createSodRule } = useSAPData();

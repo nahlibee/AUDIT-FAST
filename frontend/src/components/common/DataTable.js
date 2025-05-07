@@ -1,6 +1,6 @@
 // src/components/common/DataTable.js
 import React, { useState } from 'react';
-import { getTableContainerClass, getTableClass, getTableHeaderClass, getTableHeaderCellClass, getTableRowClass, getTableCellClass, getButtonClass } from '../../utils/styleUtils';
+import { getTableContainerClass, getTableClass, getTableHeaderClass, getTableHeaderCellClass, getTableRowClass, getTableCellClass, getButtonClass } from '../../utils/StyleUtils';
 
 const DataTable = ({ 
   data = [], 

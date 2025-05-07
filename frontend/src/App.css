@@ -1,0 +1,23 @@
+/* 
+ * App.css
+ * 
+ * This file is intentionally mostly empty because we are using StyleUtils
+ * utility functions for consistent styling throughout the application.
+ * 
+ * Check utils/StyleUtils.js for the styling utilities being used.
+ */
+
+/* Only global styles that cannot be handled by StyleUtils should be added here */
+.loading-spinner {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 

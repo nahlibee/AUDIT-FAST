@@ -1,7 +1,7 @@
 import React from 'react';
-import { useSAPData } from '../../../context/SAPDataContext';
+import { useSAPData } from '../../../context/SapDataContext';
 import DataTable from '../../common/DataTable';
-import { exportToCSV } from '../../../utils/exportUtils';
+import { exportToCSV } from '../../../utils/ExportUtils';
 
 /**
  * Composant d'analyse des privilèges élevés

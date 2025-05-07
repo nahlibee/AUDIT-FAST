@@ -1,7 +1,7 @@
 // src/pages/HomePage.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSAPData } from '../context/SAPDataContext';
+import { useSAPData } from '../context/SapDataContext';
 import Card from '../components/common/Card';
 import { 
   getCardClass, 
@@ -10,7 +10,7 @@ import {
   getSectionTitleClass,
   getSectionContainerClass,
   getDividerClass
-} from '../utils/styleUtils';
+} from '../utils/StyleUtils';
 
 const HomePage = () => {
   const { data } = useSAPData();

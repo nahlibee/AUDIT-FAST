@@ -3,22 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
+    "@ant-design/icons": "^5.2.6",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.0.2",
+    "@testing-library/dom": "^9.3.4",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.8.4",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.5.1",
+    "antd": "^5.13.3",
+    "axios": "^1.6.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.3",
     "react-scripts": "^5.0.1",
-    "recharts": "^2.15.3",
+    "recharts": "^2.10.4",
+    "spinner": "^0.3.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set DISABLE_ESLINT_PLUGIN=true && react-scripts start",
-    "build": "set DISABLE_ESLINT_PLUGIN=true && react-scripts build",
-    "test": "set DISABLE_ESLINT_PLUGIN=true && react-scripts test",
+    "start": "react-scripts start",
+    "build": "set DISABLE_ESLINT_PLUGIN=true && set ESLINT_NO_DEV_ERRORS=true && react-scripts build --no-eslint",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -37,9 +43,11 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.21",
-    "es-abstract": "^1.23.9",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^3.4.17"
+    "ajv": "^8.12.0",
+    "ajv-keywords": "^5.1.0",
+    "autoprefixer": "^10.4.17",
+    "es-abstract": "^1.22.3",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1"
   }
 }

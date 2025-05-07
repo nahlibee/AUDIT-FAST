@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSAPData } from '../../context/SAPDataContext';
-import { getButtonClass } from '../../utils/styleUtils';
+import { useSAPData } from '../../context/SapDataContext';
+import { getButtonClass } from '../../utils/StyleUtils';
 import DateRangeForm from './DateRangeForm';
 
 /**

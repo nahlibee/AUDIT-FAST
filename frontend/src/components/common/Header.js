@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSAPData } from '../../context/SAPDataContext';
-import { getButtonClass } from '../../utils/styleUtils';
+import { useSAPData } from '../../context/SapDataContext';
+import { getButtonClass } from '../../utils/StyleUtils';
 
 /**
  * Composant d'en-tête de l'application

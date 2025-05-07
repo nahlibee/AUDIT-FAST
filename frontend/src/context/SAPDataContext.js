@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-import { analyzeAGRUsers, integrateAdditionalData, filterByDateRange, generateReport } from '../services/analysisService';
-import { getSodRules, addSodRule } from '../services/sodService';
+import { analyzeAGRUsers, integrateAdditionalData, filterResultsByDateRange, generateReport } from '../services/AnalysisService';
 
 // Création du contexte
 const SAPDataContext = createContext();
@@ -22,9 +21,6 @@ export const SAPDataProvider = ({ children }) => {
   
   // État pour l'ID d'analyse
   const [analysisId, setAnalysisId] = useState(null);
-  
-  // État pour les règles SoD
-  const [sodRules, setSodRules] = useState([]);
   
   // État pour la plage de dates
   const [dateRange, setDateRange] = useState({
@@ -83,7 +79,7 @@ export const SAPDataProvider = ({ children }) => {
     setError(null);
     
     try {
-      const result = await filterByDateRange(analysisId, dateRange);
+      const result = await filterResultsByDateRange(analysisId, dateRange);
       setData(result);
     } catch (err) {
       setError(err.message);
@@ -115,37 +111,11 @@ export const SAPDataProvider = ({ children }) => {
     }
   };
 
-  // Chargement des règles SoD
-  const fetchSodRules = async () => {
-    try {
-      const rules = await getSodRules();
-      setSodRules(rules);
-    } catch (err) {
-      console.error("Erreur lors de la récupération des règles SoD:", err);
-    }
-  };
-
-  // Ajout d'une règle SoD
-  const createSodRule = async (ruleName, conflictingRoles, riskLevel) => {
-    if (!ruleName || !conflictingRoles) {
-      setError("Veuillez compléter tous les champs de la règle");
-      return;
-    }
-    
-    try {
-      await addSodRule(ruleName, conflictingRoles, riskLevel);
-      await fetchSodRules(); // Rafraîchir la liste des règles
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
   // Valeur du contexte
   const contextValue = {
     files,
     data,
     analysisId,
-    sodRules,
     dateRange,
     loading,
     error,
@@ -154,8 +124,6 @@ export const SAPDataProvider = ({ children }) => {
     setDateRange,
     applyDateFilter,
     createReport,
-    fetchSodRules,
-    createSodRule,
     setError
   };
 
@@ -165,3 +133,5 @@ export const SAPDataProvider = ({ children }) => {
     </SAPDataContext.Provider>
   );
 };
+
+

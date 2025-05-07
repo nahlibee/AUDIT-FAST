@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSAPData } from '../../context/SAPDataContext';
-import { exportToCSV } from '../../utils/exportUtils';
+import { useSAPData } from '../../context/SapDataContext';
+import { exportToCSV } from '../../utils/ExportUtils';
 import DataTable from '../common/DataTable';
 
 const RolesAnalysis = () => {

@@ -6,7 +6,9 @@
  */
 
 // URL de base de l'API
-export const API_URL = 'http://localhost:8000/api';
+export const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8082/api/audit';
+export const AUTH_SERVICE_URL = process.env.REACT_APP_AUTH_SERVICE_URL || 'http://localhost:8081/api/auth';
+export const ANALYSIS_SERVICE_URL = process.env.REACT_APP_ANALYSIS_SERVICE_URL || 'http://localhost:8000';
 
 // Délai d'attente pour les requêtes (en millisecondes)
 export const API_TIMEOUT = 30000;
@@ -14,27 +16,51 @@ export const API_TIMEOUT = 30000;
 // Options par défaut pour les requêtes fetch
 export const DEFAULT_FETCH_OPTIONS = {
   headers: {
-    'Accept': 'application/json'
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
   },
-  // Activer les cookies cross-origin si nécessaire
   credentials: 'include'
 };
 
 // Paramètres pour les différents endpoints
 export const API_ENDPOINTS = {
-  // Endpoints pour l'analyse
-  ANALYZE: '/analyze/agr-users',
-  INTEGRATE: '/integrate',
+  // Endpoints pour l'authentification
+  AUTH: {
+    LOGIN: '/login',
+    REGISTER: '/register',
+    REFRESH: '/refresh',
+    LOGOUT: '/logout'
+  },
+  
+  // AGR_USERS analysis
+  AGR_USERS: '/analyze/agr-users',
+  
+  // USR02 analysis
+  USR02: '/analyze/usr02',
+  
+  // UST12 analysis
+  UST12: '/ust12/analyze',
+  
+  // Integrated analysis
+  INTEGRATE: '/integrate-data',
+  
+  // Filter results by date range
   FILTER: '/filter',
   
-  // Endpoints pour les rapports
+  // Generate reports
   REPORTS: '/reports',
   
-  // Endpoints pour les règles SoD
-  SOD_RULES: '/sod-rules',
+  // Audit findings
+  AUDIT_FINDINGS: '/audit-findings',
   
-  // Endpoint de vérification de santé de l'API
-  HEALTH: '/health'
+  // Health check
+  HEALTH: '/health',
+  
+  // Audit types
+  AUDIT_TYPES: '/audit-types',
+  
+  // Endpoints pour les règles SoD
+  SOD_RULES: '/sod-rules'
 };
 
 /**
@@ -62,7 +88,7 @@ export const handleAPIResponse = async (response) => {
   if (!response.ok) {
     try {
       const errorData = await response.json();
-      throw new Error(errorData.detail || `Erreur ${response.status}: ${response.statusText}`);
+      throw new Error(errorData.message || errorData.detail || `Erreur ${response.status}: ${response.statusText}`);
     } catch (e) {
       if (e instanceof SyntaxError) {
         throw new Error(`Erreur ${response.status}: ${response.statusText}`);

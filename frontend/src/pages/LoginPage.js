@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { getButtonClass, getCardClass } from '../utils/styleUtils';
+import { getButtonClass, getCardClass } from '../utils/StyleUtils';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const { login } = useAuth();
+    const { login, isLoggedIn } = useAuth();
     const navigate = useNavigate();
+
+    // Redirect if already logged in
+    useEffect(() => {
+        if (isLoggedIn) {
+            // Get intended path or last path or default to home
+            const redirectPath = localStorage.getItem('intendedPath') || 
+                                localStorage.getItem('lastPath') || 
+                                '/';
+            // Clear the intended path after using it
+            localStorage.removeItem('intendedPath');
+            navigate(redirectPath);
+        }
+    }, [isLoggedIn, navigate]);
 
     const validateForm = () => {
         if (!username || !password) {
@@ -31,9 +44,13 @@ const LoginPage = () => {
         try {
             const success = await login(username, password);
             if (success) {
-                navigate('/');
-            } else {
-                setError('Nom d\'utilisateur ou mot de passe invalide');
+                // Get intended path or last path or default to home
+                const redirectPath = localStorage.getItem('intendedPath') || 
+                                    localStorage.getItem('lastPath') || 
+                                    '/';
+                // Clear the intended path after using it
+                localStorage.removeItem('intendedPath');
+                navigate(redirectPath);
             }
         } catch (error) {
             console.error('Login error:', error);
@@ -55,7 +72,7 @@ const LoginPage = () => {
                 setError('Le serveur ne répond pas. Veuillez vérifier votre connexion internet.');
             } else {
                 // Something happened in setting up the request
-                setError('Une erreur est survenue lors de la connexion');
+                setError('Identifiants incorrects ou problème de connexion. Veuillez réessayer.');
             }
         } finally {
             setIsLoading(false);

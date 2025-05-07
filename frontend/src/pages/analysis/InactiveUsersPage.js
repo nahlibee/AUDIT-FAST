@@ -1,10 +1,10 @@
 // src/pages/analysis/InactiveUsersPage.js
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSAPData } from '../../context/SAPDataContext';
+import { useSAPData } from '../../context/SapDataContext';
 import DataTable from '../../components/common/DataTable';
-import { getBadgeClass, getCardClass, getButtonClass, getAlertClass, getSectionTitleClass, getStatClass, getStatLabelClass } from '../../utils/styleUtils';
-import { exportToCSV } from '../../utils/exportUtils';
+import { getBadgeClass, getCardClass, getButtonClass, getAlertClass, getSectionTitleClass, getStatClass, getStatLabelClass } from '../../utils/StyleUtils';
+import { exportToCSV } from '../../utils/ExportUtils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const COLORS = ['#ef4444', '#f59e0b', '#facc15', '#84cc16'];
