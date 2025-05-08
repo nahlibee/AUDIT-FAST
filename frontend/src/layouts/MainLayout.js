@@ -7,6 +7,7 @@ import { useSAPData } from '../context/SapDataContext';
 import Alert from '../components/common/Alert';
 import { getMainContainerClass } from '../utils/StyleUtils';
 
+
 const MainLayout = () => {
   const { user } = useAuth();
   const { loading, error } = useSAPData();
@@ -54,6 +55,9 @@ const MainLayout = () => {
           )}
         </div>
       </main>
+      
+      
+      
     </div>
   );
 };

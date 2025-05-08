@@ -241,7 +241,7 @@ async def integrate_data(
                 "validation_errors": {
                     "message": f"Error parsing files: {str(e)}",
                     "details": "Cannot parse one or more input files into DataFrames"
-                }
+            }
             }
             analyses["integrated"][analysis_id] = {
                 "report": error_report,
@@ -421,11 +421,11 @@ def parse_file_to_dataframe(filename, buffer):
                     print(f"Trying with encoding {encoding} and delimiter '{delimiter}'")
                     df = pd.read_csv(buffer, delimiter=delimiter, encoding=encoding)
                     if len(df.columns) > 1:
-                        print(f"Successfully parsed with encoding {encoding} and delimiter '{delimiter}': {len(df)} rows")
-                        return df
+                            print(f"Successfully parsed with encoding {encoding} and delimiter '{delimiter}': {len(df)} rows")
+                    return df
                 except Exception as e:
-                    print(f"Failed with encoding {encoding} and delimiter '{delimiter}': {str(e)}")
-                    continue
+                        print(f"Failed with encoding {encoding} and delimiter '{delimiter}': {str(e)}")
+                        continue
         
         # Last attempt with more flexible options
         print("Trying with python engine and automatic delimiter detection")

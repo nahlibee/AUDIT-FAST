@@ -166,7 +166,7 @@ def validate_data(data):
     else:
         print(f"USR12 contains {len(data['usr12_df'])} rows of data")
     
-    # Ensure all tables have a matching client (MANDT) field
+    # Check if there's at least one common client across all tables
     if 'MANDT' in data['agr_users_df'].columns and 'MANDT' in data['usr02_df'].columns and 'MANDT' in data['usr12_df'].columns:
         usr02_clients = set(data['usr02_df']['MANDT'].unique())
         agr_users_clients = set(data['agr_users_df']['MANDT'].unique())
@@ -202,7 +202,7 @@ def validate_data(data):
             warn_msg = "Warning: No common users found between USR02 and AGR_USERS tables"
             print(warn_msg)
             validation_errors.append(warn_msg)
-    
+
     # Prepare data for easier analysis (convert date/time fields to strings)
     _prepare_data(data)
     

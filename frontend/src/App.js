@@ -16,11 +16,11 @@ import IntegratedAnalysisPage from './pages/IntegratedAnalysisPage';
 import UserProfilePage from './pages/UserProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import MissionForm from './components/audit/MissionForm';
+import { AdminUsersPage } from './pages/admin';
 import { Layout } from 'antd';
 import { getAppContainerClass, getMainContainerClass } from './utils/StyleUtils';
 
 // Import components
-import Navbar from './components/Navbar';
 import BackendDashboardPage from './pages/BackendDashboardPage';
 import AuditReportPage from './pages/AuditReportPage';
 
@@ -34,7 +34,6 @@ const App = () => {
           <ToastProvider>
             <AuditProvider>
               <div className={getAppContainerClass()}>
-                <Navbar />
                 <div className={getMainContainerClass()}>
                   <Routes>
                     {/* Public routes */}
@@ -61,6 +60,15 @@ const App = () => {
                       
                       {/* User routes */}
                       <Route path="profile" element={<UserProfilePage />} />
+                      
+                      {/* Admin routes */}
+                      <Route path="admin">
+                        <Route path="users" element={
+                          <RoleBasedRoute allowedRoles={['ADMIN']}>
+                            <AdminUsersPage />
+                          </RoleBasedRoute>
+                        } />
+                      </Route>
                       
                       {/* Catch all route */}
                       <Route path="*" element={<NotFoundPage />} />

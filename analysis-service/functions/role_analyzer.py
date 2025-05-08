@@ -9,6 +9,7 @@ from datetime import datetime
 import pandas as pd
 from functions.formatters import format_sap_date, format_validity_period
 from config import CONFIG, SAP_MANDT_FIELD, SAP_ROLE_USER_FIELD
+import re
 
 def analyze_roles(data):
     """
@@ -170,7 +171,14 @@ def analyze_roles(data):
         reverse=True
     )
     
+    # Extract expired role assignments to a dedicated list for easy access by the frontend
+    role_analysis['expired_role_assignments'] = [
+        assignment for assignment in role_analysis['role_assignments']
+        if assignment['is_expired']
+    ]
+    
     print(f"Analysis complete. Found {len(role_analysis['roles'])} unique roles with {assignment_count} assignments")
+    print(f"Found {len(role_analysis['expired_role_assignments'])} expired role assignments")
     print("======= ANALYZE ROLES FUNCTION COMPLETED =======\n")
     
     return role_analysis
@@ -223,19 +231,41 @@ def _is_date_expired(date_str, compare_date):
         bool: True if date is expired, False otherwise
     """
     if pd.isna(date_str) or str(date_str).strip() == '':
+        print(f"DEBUG: Empty date_str, returning not expired")
         return False
-        
+    
+    date_str_clean = str(date_str).strip()    
     try:
         # Handle permanent dates (99991231 or similar)
-        if str(date_str).startswith('9999') or str(date_str).startswith('2999'):
+        if date_str_clean.startswith('9999') or date_str_clean.startswith('2999'):
+            print(f"DEBUG: Permanent date detected: {date_str_clean}, returning not expired")
+            return False
+        
+        # Handle malformed dates
+        if len(date_str_clean) != 8:
+            print(f"DEBUG: Malformed date: {date_str_clean} (length not 8), returning not expired")
             return False
             
         # Convert to integers for comparison
-        date_int = int(float(date_str))
-        compare_int = int(float(compare_date))
+        try:
+            date_int = int(float(date_str))
+        except:
+            # Try to clean up the date string
+            date_int = int(re.sub(r'[^0-9]', '', date_str_clean))
+            
+        try:
+            compare_int = int(float(compare_date))
+        except:
+            # Use today's date as fallback if compare_date is invalid
+            compare_int = int(datetime.now().strftime('%Y%m%d'))
         
-        return date_int < compare_int
-    except (ValueError, TypeError):
+        is_expired = date_int < compare_int
+        print(f"DEBUG: Date comparison: {date_int} < {compare_int} = {is_expired}")
+        return is_expired
+        
+    except (ValueError, TypeError) as e:
+        print(f"DEBUG: Error in date comparison for {date_str_clean}: {str(e)}")
+        # Default to not expired in case of error
         return False
 
 def _get_users_with_role(agr_users_df, role_name):

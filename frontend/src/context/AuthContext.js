@@ -112,27 +112,59 @@ export const AuthProvider = ({ children }) => {
 
     const hasRole = (roleName) => {
         if (!user || !user.roles || user.roles.length === 0) {
+            console.log('No user or roles available');
             return false;
         }
 
-        // Check if user has the exact role
-        if (user.roles.includes(roleName)) {
-            return true;
-        }
+        console.log(`Checking for role: ${roleName}, User roles:`, user.roles);
 
-        // Check if user has a role that inherits the required role
+        // Check various role formats
         for (const userRole of user.roles) {
-            if (ROLE_HIERARCHY[userRole] && ROLE_HIERARCHY[userRole].includes(roleName)) {
+            // Case 1: Direct match
+            if (userRole === roleName) {
+                console.log(`Found direct match for ${roleName}`);
                 return true;
+            }
+            
+            // Case 2: Server-side format with "ROLE_" prefix
+            if (typeof userRole === 'string') {
+                // Handle ROLE_ADMIN vs admin format
+                const normalizedUserRole = userRole.replace('ROLE_', '').toLowerCase();
+                const normalizedRoleName = roleName.replace('ROLE_', '').toLowerCase();
+                
+                if (normalizedUserRole === normalizedRoleName) {
+                    console.log(`Found normalized match for ${roleName} as ${normalizedUserRole}`);
+                    return true;
+                }
+            }
+
+            // Case 3: Check role hierarchy
+            if (ROLE_HIERARCHY[userRole] && ROLE_HIERARCHY[userRole].includes(roleName)) {
+                console.log(`Found role in hierarchy: ${userRole} includes ${roleName}`);
+                return true;
+            }
+            
+            // Case 4: Check normalized role hierarchy
+            if (typeof userRole === 'string') {
+                const normalizedUserRole = userRole.replace('ROLE_', '').toLowerCase();
+                if (ROLE_HIERARCHY[normalizedUserRole] && ROLE_HIERARCHY[normalizedUserRole].includes(roleName)) {
+                    console.log(`Found normalized role in hierarchy: ${normalizedUserRole} includes ${roleName}`);
+                    return true;
+                }
             }
         }
 
+        console.log(`Role ${roleName} not found in user roles`);
         return false;
     };
 
     const isAuditor = () => hasRole(ROLES.AUDITOR);
     const isManager = () => hasRole(ROLES.MANAGER);
-    const isAdmin = () => hasRole(ROLES.ADMIN);
+    const isAdmin = () => {
+        const result = hasRole(ROLES.ADMIN);
+        console.log(`isAdmin check result: ${result}`);
+        return result;
+    };
 
     const value = {
         user,

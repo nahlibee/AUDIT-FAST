@@ -22,6 +22,7 @@ import {
 
 const { TabPane } = Tabs;
 
+
 /**
  * Page for displaying the comprehensive audit report with findings
  */
